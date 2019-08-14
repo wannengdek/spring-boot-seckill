@@ -9,4 +9,6 @@ public interface UserMapper {
 
     public User getById(@Param("id") int id);
 
+
+    public int insert(User user);
 }

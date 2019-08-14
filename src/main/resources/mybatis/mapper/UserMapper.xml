@@ -9,4 +9,7 @@
     </select>
 
 
+    <insert id="insert">
+        insert into user(id, name)values(#{id}, #{name})
+    </insert>
 </mapper>
