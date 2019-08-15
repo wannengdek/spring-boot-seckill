@@ -10,6 +10,7 @@ import spring.mooc.seckill.redis.MiaoshaUserKey;
 import spring.mooc.seckill.redis.RedisService;
 import spring.mooc.seckill.result.CodeMsg;
 import spring.mooc.seckill.util.MD5Util;
+import spring.mooc.seckill.util.UUIDUtil;
 import spring.mooc.seckill.vo.LoginVo;
 
 import javax.servlet.http.Cookie;
@@ -33,6 +34,12 @@ public class MiaoshaUserService {
 	}
 
 
+	/**
+	 * 得到token  并延长有效期
+	 * @param response
+	 * @param token
+	 * @return
+	 */
 	public MiaoshaUser getByToken(HttpServletResponse response, String token) {
 		if(StringUtils.isEmpty(token)) {
 			return null;
@@ -45,10 +52,10 @@ public class MiaoshaUserService {
 		return user;
 	}
 
-//	public boolean login(HttpServletResponse response, LoginVo loginVo) {
-	public boolean login(LoginVo loginVo) {
+	public boolean login(HttpServletResponse response, LoginVo loginVo) {
 		if(loginVo == null) {
 			throw new GlobalException(CodeMsg.SERVER_ERROR);
+			//抛出全局异常
 		}
 		String mobile = loginVo.getMobile();
 		String formPass = loginVo.getPassword();
@@ -65,8 +72,8 @@ public class MiaoshaUserService {
 			throw new GlobalException(CodeMsg.PASSWORD_ERROR);
 		}
 		//生成cookie
-//		String token = UUIDUtil.uuid();
-//		addCookie(response, token, user);
+		String token = UUIDUtil.uuid();
+		addCookie(response, token, user);
 		return true;
 	}
 

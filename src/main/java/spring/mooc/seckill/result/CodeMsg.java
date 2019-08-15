@@ -44,6 +44,12 @@ public class CodeMsg {
 	}
 
 	public CodeMsg fillArgs(Object... args) {
+		/**
+		 * J2SE 1.5提供了“Varargs”机制。借助这一机制，
+		 * 		可以定义能和多个实参相匹配的形参。从而，可以用一种更简单的方式，来传递个数可变的实参。
+		 * 	只要在一个形参的“类型”与“参数名”之间加上三个连续的“.”（即“...”，英文里的句中省略号）
+		 * 	，就可以让它和不确定个实参相匹配
+		 */
 		int code = this.code;
 		String message = String.format(this.msg, args);
 		return new CodeMsg(code, message);
