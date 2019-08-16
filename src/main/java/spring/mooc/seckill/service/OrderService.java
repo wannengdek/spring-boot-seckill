@@ -21,6 +21,12 @@ public class OrderService {
 		return orderMapper.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
 	}
 
+	/**
+	 * 创建订单
+	 * @param user
+	 * @param goods
+	 * @return
+	 */
 	@Transactional
 	public OrderInfo createOrder(MiaoshaUser user, GoodsVo goods) {
 		OrderInfo orderInfo = new OrderInfo();
@@ -33,13 +39,23 @@ public class OrderService {
 		orderInfo.setOrderChannel(1);
 		orderInfo.setStatus(0);
 		orderInfo.setUserId(user.getId());
+
 		long orderId = orderMapper.insert(orderInfo);
+		System.out.println("秒杀订单id为:"+orderId);
+
 		MiaoshaOrder miaoshaOrder = new MiaoshaOrder();
 		miaoshaOrder.setGoodsId(goods.getId());
 		miaoshaOrder.setOrderId(orderId);
 		miaoshaOrder.setUserId(user.getId());
+		System.out.println("秒杀订单是:"+miaoshaOrder.toString());
+
 		orderMapper.insertMiaoshaOrder(miaoshaOrder);
 		return orderInfo;
 	}
-	
+
+
+	public void deleteOrders() {
+		orderMapper.deleteOrders();
+		orderMapper.deleteMiaoshaOrders();
+	}
 }

@@ -45,20 +45,21 @@ public class MiaoshaController {
     	//判断库存
     	GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
     	int stock = goods.getStockCount();
-		System.out.println(goods.toString());
+		System.out.println("goods"+goods.toString());
     	if(stock <= 0) {
     		model.addAttribute("errmsg", CodeMsg.MIAO_SHA_OVER.getMsg());
     		return "miaosha_fail";
     	}
     	//判断是否已经秒杀到了
     	MiaoshaOrder order = orderService.getMiaoshaOrderByUserIdGoodsId(user.getId(), goodsId);
-		System.out.println(order.toString());
+//		System.out.println("order"+order.toString());
     	if(order != null) {
     		model.addAttribute("errmsg", CodeMsg.REPEATE_MIAOSHA.getMsg());
     		return "miaosha_fail";
     	}
     	//减库存 下订单 写入秒杀订单
     	OrderInfo orderInfo = miaoshaService.miaosha(user, goods);
+		System.out.println("orderInfo:"+orderInfo.toString());
     	model.addAttribute("orderInfo", orderInfo);
     	model.addAttribute("goods", goods);
         return "order_detail";
