@@ -10,7 +10,10 @@
         SELECT * FROM employee WHERE id=#{id}
     </select>
 
-    <insert id="insertEmp">
+    <insert id="insertEmp" useGeneratedKeys="true" keyProperty="id">
+<selectKey order="BEFORE" keyProperty="id" >
+    select last_insert_id()
+</selectKey>
         INSERT INTO employee(lastName,email,gender,d_id) VALUES (#{lastName},#{email},#{gender},#{dId})
     </insert>
 

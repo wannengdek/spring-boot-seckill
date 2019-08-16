@@ -41,11 +41,11 @@ public class OrderService {
 		orderInfo.setUserId(user.getId());
 
 		long orderId = orderMapper.insert(orderInfo);
-		System.out.println("秒杀订单id为:"+orderId);
+		System.out.println("订单id为:"+orderId);
 
 		MiaoshaOrder miaoshaOrder = new MiaoshaOrder();
 		miaoshaOrder.setGoodsId(goods.getId());
-		miaoshaOrder.setOrderId(orderId);
+		miaoshaOrder.setOrderId(orderInfo.getId());
 		miaoshaOrder.setUserId(user.getId());
 		System.out.println("秒杀订单是:"+miaoshaOrder.toString());
 

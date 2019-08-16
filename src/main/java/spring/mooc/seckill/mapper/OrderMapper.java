@@ -12,13 +12,10 @@ public interface OrderMapper {
 	
 	public MiaoshaOrder getMiaoshaOrderByUserIdGoodsId(@Param("userId") long userId, @Param("goodsId") long goodsId);
 
-	/**新建订单
+	/**新建订单  使用数据库返回的订单id 作为 秒杀订单的内容.
 	 * @param orderInfo
 	 * @return
 	 */
-	@Insert("insert into order_info(user_id, goods_id, goods_name, goods_count, goods_price, order_channel, status, create_date)values("
-			+ "#{userId}, #{goodsId}, #{goodsName}, #{goodsCount}, #{goodsPrice}, #{orderChannel},#{status},#{createDate} )")
-	@SelectKey(keyColumn="id", keyProperty="id", resultType=long.class, before=false, statement="select last_insert_id()")
 	public long insert(OrderInfo orderInfo);
 
 	/** 新建秒杀订单
