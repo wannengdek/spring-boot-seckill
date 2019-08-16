@@ -42,4 +42,11 @@ public class HelloController {
         model.addAttribute("name", "Joshua");
         return "hello";
     }
+
+    @RequestMapping("/goods_detail")
+    public String  thymeleaf1(Model model) {
+        model.addAttribute("name", "Joshua");
+
+        return "goods_detail";
+    }
 }

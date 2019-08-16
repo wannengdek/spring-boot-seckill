@@ -22,17 +22,17 @@
             height:100%;
             width:100%;
         }
-        body{
-            background:url('/img/bg2.jpg') no-repeat;
-            background-size:100% 100%;
-        }
+        /*body{*/
+        /*    background:url('/img/bg2.jpg') no-repeat;*/
+        /*    background-size:100% 100%;*/
+        /*}*/
         #goodslist td{
             border-top:1px solid #39503f61;
         }
     </style>
 </head>
 <body>
-
+<a href="/goods_detail">22222222222</a>
 <div class="panel panel-default" style="height:100%;background-color:rgba(222,222,222,0.8)">
   <div class="panel-heading">秒杀商品列表</div>
   <table class="table" id="goodslist">
@@ -43,7 +43,7 @@
                 <td th:text="${goods.goodsPrice}"></td>  
                 <td th:text="${goods.miaoshaPrice}"></td>  
                 <td th:text="${goods.stockCount}"></td>
-                <td><a th:href="'/goods_detail.htm?goodsId='+${goods.id}">详情</a></td>  
+                <td><a th:href="'/goods/to_detail/'+${goods.id}">详情</a></td>
      </tr>  
   </table>
 </div>

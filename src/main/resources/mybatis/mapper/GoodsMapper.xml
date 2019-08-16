@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spring.mooc.seckill.mapper.GoodsMapper">
+   <!--    public Employee getEmpById(Integer id);
+
+    public void insertEmp(Employee employee);-->
+    <select id="listGoodsVo" resultType="spring.mooc.seckill.vo.GoodsVo">
+        select g.*,mg.stock_count, mg.start_date, mg.end_date,mg.miaosha_price from miaosha_goods mg left join goods g on mg.goods_id = g.id
+    </select>
+
+
+    <select id="getGoodsVoByGoodsId" resultType="spring.mooc.seckill.vo.GoodsVo">
+        select g.*,mg.stock_count, mg.start_date, mg.end_date,mg.miaosha_price from miaosha_goods mg left join goods g on mg.goods_id = g.id where g.id = #{goodsId}
+    </select>
+
+    <update id="reduceStock">
+        update miaosha_goods set stock_count = stock_count - 1 where goods_id = #{goodsId}
+    </update>
+
+</mapper>

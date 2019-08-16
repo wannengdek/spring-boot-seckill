@@ -9,6 +9,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import spring.mooc.seckill.bean.MiaoshaUser;
+import spring.mooc.seckill.exception.GlobalException;
+import spring.mooc.seckill.result.CodeMsg;
 import spring.mooc.seckill.service.MiaoshaUserService;
 
 import javax.servlet.http.Cookie;
@@ -45,12 +47,20 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 		HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
 
 		String paramToken = request.getParameter(MiaoshaUserService.COOKI_NAME_TOKEN);
-		String cookieToken = getCookieValue(request, MiaoshaUserService.COOKI_NAME_TOKEN);
-		if(StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)) {
-			return null;
+
+		try {
+			String cookieToken = getCookieValue(request, MiaoshaUserService.COOKI_NAME_TOKEN);
+			//判断是否有cookie
+			if(StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)) {
+//				System.out.println("清除cookie 后没有 cookie 返回null");
+				return new GlobalException(CodeMsg.SERVER_ERROR);
+			}
+			String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
+//			System.out.println("判断是否有cookie----resolveArgument");
+			return userService.getByToken(response, token);
+		}catch (Exception e1){
+				return new GlobalException(CodeMsg.SERVER_ERROR);
 		}
-		String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
-		return userService.getByToken(response, token);
 	}
 
     /**

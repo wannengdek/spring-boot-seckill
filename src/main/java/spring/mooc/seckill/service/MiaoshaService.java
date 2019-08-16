@@ -1,0 +1,27 @@
+package spring.mooc.seckill.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import spring.mooc.seckill.bean.MiaoshaUser;
+import spring.mooc.seckill.bean.OrderInfo;
+import spring.mooc.seckill.vo.GoodsVo;
+
+@Service
+public class MiaoshaService {
+	
+	@Autowired
+	GoodsService goodsService;
+	
+	@Autowired
+	OrderService orderService;
+
+	@Transactional
+	public OrderInfo miaosha(MiaoshaUser user, GoodsVo goods) {
+		//减库存 下订单 写入秒杀订单
+		goodsService.reduceStock(goods);
+		//order_info maiosha_order
+		return orderService.createOrder(user, goods);
+	}
+	
+}
