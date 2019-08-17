@@ -7,4 +7,9 @@
     <select id="getById" resultType="spring.mooc.seckill.bean.MiaoshaUser">
         select * from miaosha_user where id = #{id}
     </select>
+
+    <insert id="insert">
+        insert into miaosha_user(id,nickname,password,salt,register_date,login_count
+        ) values(#{id},#{Nickname}，#{password}，#{salt},#{registerDate},#{LoginCount});
+    </insert>
 </mapper>

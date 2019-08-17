@@ -11,6 +11,7 @@
     <groupId>spring.mooc</groupId>
     <artifactId>seckill</artifactId>
     <version>0.0.1</version>
+    <packaging>jar</packaging>
     <name>seckill</name>
     <description>Demo project for Spring Boot</description>
 
@@ -54,6 +55,8 @@
         </dependency>
 
 
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -94,6 +97,12 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+<!--        war包-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
 
     </dependencies>
 
@@ -103,7 +112,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+<!--            <plugin>-->
+<!--&lt;!&ndash;                <finalName>${project.artifactId}</finalName>&ndash;&gt;-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
         </plugins>
+
     </build>
 
 </project>

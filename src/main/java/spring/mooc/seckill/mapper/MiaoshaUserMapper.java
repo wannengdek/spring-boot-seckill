@@ -9,4 +9,7 @@ public interface MiaoshaUserMapper {
 
 
 	public MiaoshaUser getById(@Param("id") long id);
+
+
+	public MiaoshaUser insert(MiaoshaUser miaoshaUser);
 }
