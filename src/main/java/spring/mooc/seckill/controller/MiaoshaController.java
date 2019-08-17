@@ -39,6 +39,7 @@ public class MiaoshaController {
     public String list(Model model, MiaoshaUser user,
 					   @RequestParam("goodsId")long goodsId) {
     	model.addAttribute("user", user);
+		//由于使用了  argumentResolver   直接可以获取到  user  然后将它加入到 model 中
     	if(user == null) {
     		return "login";
     	}

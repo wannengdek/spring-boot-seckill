@@ -2,6 +2,7 @@ package spring.mooc.seckill.redis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +43,9 @@ public class JedisConfig {
 //    @Value("${redis.jedis.pool.max-wait}")
 //    private long maxWaitMillis;
 
+    @Autowired
+    RedisConfig redisConfig;
+
     @Bean
     public JedisPool redisPoolFactory(){
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
@@ -49,7 +53,14 @@ public class JedisConfig {
 //        jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
 //        jedisPoolConfig.setMaxTotal(maxActive);
 //        jedisPoolConfig.setMinIdle(minIdle);
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout, null);
+
+//        JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout, null,poolMaxIdle,poolMaxTotal,poolMaxWait);
+
+        jedisPoolConfig.setMaxIdle(redisConfig.getPoolMaxIdle());
+        jedisPoolConfig.setMaxTotal(redisConfig.getPoolMaxTotal());
+        jedisPoolConfig.setMaxWaitMillis(redisConfig.getPoolMaxWait() * 1000);
+		JedisPool jedisPool = new JedisPool(jedisPoolConfig, redisConfig.getHost(), redisConfig.getPort(),
+				redisConfig.getTimeout()*1000, null, 0);
 
         logger.info("JedisPool注入成功");
         logger.info("redis地址：" + host + ":" + port);

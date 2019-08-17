@@ -47,6 +47,7 @@ public class GoodsController {
 						 @PathVariable("goodsId")long goodsId) {
 
 		model.addAttribute("user", user);
+		//由于使用了  argumentResolver   直接可以获取到  user  然后将它加入到 model 中
 
 		GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
 		System.out.println(goods);
