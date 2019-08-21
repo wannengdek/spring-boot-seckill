@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "spring.resources.chaingzipped",
+      "type": "java.lang.String",
+      "description": "Description for spring.resources.chaingzipped."
+    },
+    {
+      "name": "spring.resources.static.locations",
+      "type": "java.lang.String",
+      "description": "Description for spring.resources.static.locations."
+    },
+    {
+      "name": "spring.resources.cache.gizipped",
+      "type": "java.lang.String",
+      "description": "Description for spring.resources.cache.gizipped."
+    }
+  ] }

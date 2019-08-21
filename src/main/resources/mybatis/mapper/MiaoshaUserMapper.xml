@@ -12,4 +12,8 @@
         insert into miaosha_user(id,nickname,password,salt,register_date,login_count
         ) values(#{id},#{Nickname}，#{password}，#{salt},#{registerDate},#{LoginCount});
     </insert>
+
+    <update id="update">
+        update miaosha_user set password = #{password} where id = #{id}
+    </update>
 </mapper>

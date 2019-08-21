@@ -12,4 +12,8 @@ public interface MiaoshaUserMapper {
 
 
 	public MiaoshaUser insert(MiaoshaUser miaoshaUser);
+
+	public void update(MiaoshaUser toBeUpdate);
+
+
 }

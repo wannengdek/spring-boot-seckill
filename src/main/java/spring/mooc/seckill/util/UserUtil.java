@@ -96,7 +96,9 @@ public class UserUtil {
 	}
 
 	public static void main(String[] args)throws Exception {
-		createUser(1000);
+//		createUser(1000);
+		int [] arr ={1,2,3};
+		System.out.println(arr.length);
 	}
 }
 

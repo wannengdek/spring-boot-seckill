@@ -28,7 +28,7 @@ public class RedisService {
 			 String realKey  = prefix.getPrefix() + key;
 			 System.out.println("prefix.getPrefix()获取key:"+realKey);
 			 String str = jedis.get(realKey);
-			 System.out.println("获取key:"+str);
+//			 System.out.println("获取key:"+str);
 			 T t =  stringToBean(str, clazz);
 			 return t;
 		 }finally {
@@ -91,6 +91,21 @@ public class RedisService {
 		 }finally {
 			  returnToPool(jedis);
 		 }
+	}
+	/**
+	 * 删除
+	 * */
+	public boolean delete(KeyPrefix prefix, String key) {
+		Jedis jedis = null;
+		try {
+			jedis =  jedisPool.getResource();
+			//生成真正的key
+			String realKey  = prefix.getPrefix() + key;
+			long ret =  jedis.del(realKey);
+			return ret > 0;
+		}finally {
+			returnToPool(jedis);
+		}
 	}
 	
 	/**

@@ -7,6 +7,8 @@ import spring.mooc.seckill.bean.MiaoshaOrder;
 import spring.mooc.seckill.bean.MiaoshaUser;
 import spring.mooc.seckill.bean.OrderInfo;
 import spring.mooc.seckill.mapper.OrderMapper;
+import spring.mooc.seckill.redis.OrderKey;
+import spring.mooc.seckill.redis.RedisService;
 import spring.mooc.seckill.vo.GoodsVo;
 
 import java.util.Date;
@@ -16,9 +18,13 @@ public class OrderService {
 	
 	@Autowired
 	OrderMapper orderMapper;
+
+	@Autowired
+	RedisService redisService;
 	
 	public MiaoshaOrder getMiaoshaOrderByUserIdGoodsId(long userId, long goodsId) {
-		return orderMapper.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
+//		return orderMapper.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
+		return redisService.get(OrderKey.getMiaoshaOrderByUidGid, ""+userId+"_"+goodsId, MiaoshaOrder.class);
 	}
 
 	/**
@@ -50,6 +56,8 @@ public class OrderService {
 		System.out.println("秒杀订单是:"+miaoshaOrder.toString());
 
 		orderMapper.insertMiaoshaOrder(miaoshaOrder);
+
+		redisService.set(OrderKey.getMiaoshaOrderByUidGid, ""+user.getId()+"_"+goods.getId(), miaoshaOrder);
 		return orderInfo;
 	}
 
@@ -58,4 +66,8 @@ public class OrderService {
 		orderMapper.deleteOrders();
 		orderMapper.deleteMiaoshaOrders();
 	}
+
+    public OrderInfo getOrderById(long orderId) {
+		return orderMapper.getOrderById(orderId);
+    }
 }
