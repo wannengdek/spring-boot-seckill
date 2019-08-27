@@ -53,11 +53,11 @@ public class OrderService {
 		miaoshaOrder.setGoodsId(goods.getId());
 		miaoshaOrder.setOrderId(orderInfo.getId());
 		miaoshaOrder.setUserId(user.getId());
-		System.out.println("秒杀订单是:"+miaoshaOrder.toString());
 
 		orderMapper.insertMiaoshaOrder(miaoshaOrder);
 
 		redisService.set(OrderKey.getMiaoshaOrderByUidGid, ""+user.getId()+"_"+goods.getId(), miaoshaOrder);
+
 		return orderInfo;
 	}
 
