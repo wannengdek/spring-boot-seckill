@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import spring.mooc.seckill.bean.User;
+import spring.mooc.seckill.rabbitmq.MQSender;
 import spring.mooc.seckill.redis.RedisService;
 import spring.mooc.seckill.redis.UserKey;
 import spring.mooc.seckill.result.CodeMsg;
@@ -21,7 +22,38 @@ public class SampleController {
 	
 	@Autowired
     RedisService redisService;
-	
+
+    @Autowired
+    MQSender sender;
+
+    	@RequestMapping("/mq/header")
+    @ResponseBody
+    public Result<String> header() {
+		sender.sendHeader("hello,imooc");
+        return Result.success("Hello，world");
+    }
+
+	@RequestMapping("/mq/fanout")
+    @ResponseBody
+    public Result<String> fanout() {
+		sender.sendFanout("hello,imooc");
+        return Result.success("Hello，world");
+    }
+
+	@RequestMapping("/mq/topic")
+    @ResponseBody
+    public Result<String> topic() {
+		sender.sendTopic("hello,imooc");
+        return Result.success("Hello，world");
+    }
+
+	@RequestMapping("/mq")
+    @ResponseBody
+    public Result<String> mq() {
+		sender.send("hello,imooc");
+        return Result.success("Hello，world");
+    }
+
     @RequestMapping("/hello")
     @ResponseBody
     public Result<String> home() {
